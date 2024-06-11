@@ -41,11 +41,13 @@
 
 	<h1>방명록</h1>
 	<%
+	int i = 0;
 	for (GuestBookVo vo : list) {
+		i = i + 1;
 	%>
 	<table width="510" border="1">
 		<tr>
-			<td>[<%=vo.getNo()%>]
+			<td>[<%=i%>]
 			</td>
 			<td><%=vo.getName()%></td>
 			<td><%=vo.getRegDate()%></td>
