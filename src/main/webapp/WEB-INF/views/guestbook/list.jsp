@@ -3,10 +3,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-//	Servlet으로부터 전달한 list 객체 얻어오기
 List<GuestBookVo> list = null;
-if (request.getAttribute("list") instanceof List) {	//	전달 받은 list가 List인지 확인
-	list = (List<GuestBookVo>)request.getAttribute("list");	//	다운 캐스팅
+if (request.getAttribute("list") instanceof List) {
+	list = (List<GuestBookVo>) request.getAttribute("list");
 }
 %>
 
@@ -18,10 +17,10 @@ if (request.getAttribute("list") instanceof List) {	//	전달 받은 list가 Lis
 </head>
 <body>
 
-
 	<!-- 방명록 추가 폼 -->
 	<h1>작성</h1>
-	<form action="<%=request.getContextPath() %>/guestbook/add.jsp" method="post">
+	<form action="<%=request.getContextPath()%>/gb" method="post">
+		<input type="hidden" name="a" value="add">
 		<table border="1" width="500">
 			<tr>
 				<td>이름</td>
@@ -51,7 +50,8 @@ if (request.getAttribute("list") instanceof List) {	//	전달 받은 list가 Lis
 			</td>
 			<td><%=vo.getName()%></td>
 			<td><%=vo.getRegDate()%></td>
-			<td><a href="deleteform.jsp?no=<%=vo.getNo()%>">삭제</a></td>
+			<td><a
+				href="<%=request.getContextPath()%>/gb?a=deleteform&no=<%=vo.getNo()%>">삭제</a></td>
 		</tr>
 		<tr>
 			<td colspan="4"><%=vo.getContent()%></td>
