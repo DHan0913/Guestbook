@@ -3,10 +3,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.SQLException" %>
 <%
+	ServletContext context = getServletContext();
+
+	String dbuser = context.getInitParameter("dbuser");
+	String dbpass = context.getInitParameter("dbpass");
+	
     int no = Integer.parseInt(request.getParameter("no"));
     String password = request.getParameter("pass");
 
-    GuestBookDao dao = new GuestBookDao();
+    GuestBookDao dao = new GuestBookDao(dbuser, dbpass);
     try {
         boolean deleted = dao.delete(no, password);
         if (deleted) {

@@ -1,13 +1,14 @@
 ﻿<%@ page import="java.util.List"%>
+<%@ page import="himedia.dao.GuestBookDao"%>
 <%@ page import="himedia.vo.GuestBookVo"%>
+<%@ page import="java.sql.SQLException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-//	Servlet으로부터 전달한 list 객체 얻어오기
-List<GuestBookVo> list = null;
-if (request.getAttribute("list") instanceof List) {	//	전달 받은 list가 List인지 확인
-	list = (List<GuestBookVo>)request.getAttribute("list");	//	다운 캐스팅
-}
+//	DB 접속 정보를 컨텍스트 파라미터로부터 받아오기
+ServletContext context = getServletContext();
+String dbuser = context.getInitParameter("dbuser");
+String dbpass = context.getInitParameter("dbpass");
 %>
 
 <!DOCTYPE html>
@@ -18,10 +19,15 @@ if (request.getAttribute("list") instanceof List) {	//	전달 받은 list가 Lis
 </head>
 <body>
 
+	<%
+	try {
+		GuestBookDao dao = new GuestBookDao(dbuser, dbpass);
+		List<GuestBookVo> list = dao.getlist();
+	%>
 
 	<!-- 방명록 추가 폼 -->
 	<h1>작성</h1>
-	<form action="<%=request.getContextPath() %>/guestbook/add.jsp" method="post">
+	<form action="add.jsp" method="post">
 		<table border="1" width="500">
 			<tr>
 				<td>이름</td>
@@ -59,6 +65,10 @@ if (request.getAttribute("list") instanceof List) {	//	전달 받은 list가 Lis
 	</table>
 	<br />
 	<%
+	}
+	} catch (SQLException e) {
+	out.println("방명록 조회 중 오류가 발생했습니다.");
+	e.printStackTrace();
 	}
 	%>
 

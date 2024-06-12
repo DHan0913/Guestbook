@@ -8,8 +8,17 @@ import java.util.List;
 import himedia.vo.GuestBookVo;
 
 public class GuestBookDao {
-	private String dbuser = "himedia";
-	private String dbpass = "himedia";
+	private String dbuser;
+	private String dbpass;
+	
+	
+
+	public GuestBookDao(String dbuser, String dbpass) {
+		this.dbuser = dbuser;
+		this.dbpass = dbpass;
+	}
+
+
 
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
