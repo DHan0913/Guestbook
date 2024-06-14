@@ -19,7 +19,7 @@ if (request.getAttribute("list") instanceof List) {
 
 	<!-- 방명록 추가 폼 -->
 	<h1>작성</h1>
-	<form action="<%=request.getContextPath()%>/gb" method="post">
+	<form action="<%=request.getContextPath()%>/guestbook/add.jsp" method="post">
 		<input type="hidden" name="a" value="add">
 		<table border="1" width="500">
 			<tr>
